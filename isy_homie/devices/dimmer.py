@@ -23,6 +23,9 @@ class Dimmer(Base, Device_Dimmer):
         self.paddle = Property_String(node, "paddleaction", "Paddle Action")
         node.add_property(self.paddle)
 
+        self.power = Property_String(node, "power", "Power State")
+        node.add_property(self.power)
+
         level = self.isy_device.get_property("level")
         if level is not None:
             self.property_change("level", level)
@@ -35,6 +38,10 @@ class Dimmer(Base, Device_Dimmer):
             self.update_dimmer(value)
         elif property_ == "paddle_action":
             self.paddle.value = value
+        elif property_ == "power":
+            print(property_ + " was updated to" + value)
+            self.power.value = value
+
 
         Base.property_change(self, property_, value)
 
